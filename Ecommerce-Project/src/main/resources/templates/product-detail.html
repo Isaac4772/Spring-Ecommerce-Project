@@ -14,7 +14,7 @@
 					<img th:src="@{${product.photoUrl}}" class="img-fluid"
 						alt="Colorlib Template">
 				</div>
-				<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+				<div class="product col-lg-6 product-details pl-md-5 ftco-animate">
 					<h3 th:text="${product.name}">Young Woman Wearing Dress</h3>
 
 					<p class="h5 text-muted">
@@ -43,12 +43,17 @@
 						<div class="w-100"></div>
 					</div>
 					<p>
-						<a href="cart.html" class="btn btn-black py-3 px-5">Add to
-							Cart</a>
+						<a th:data-id="${product.id}" th:data-name="${product.name}"
+							th:data-price="${product.price}" href="#"
+							class="add-to-cart btn btn-black py-3 px-5">Add to Cart</a>
 					</p>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<th:block layout:fragment="js">
+		<script th:src="@{/app/js/cart.js}"></script>
+	</th:block>
 </body>
 </html>
