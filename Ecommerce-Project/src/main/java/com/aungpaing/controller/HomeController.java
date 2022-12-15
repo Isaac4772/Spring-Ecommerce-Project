@@ -37,4 +37,22 @@ public class HomeController {
 		map.put("product", productService.findById(productId));
 		return "product-detail";
 	}
+
+	@GetMapping("/shop/login")
+	public String loginPage() {
+
+		return "login";
+	}
+
+	@GetMapping("/shop/register")
+	public String registerPage() {
+
+		return "register";
+	}
+
+	@GetMapping("/shop/orders")
+	public String myOrderPage() {
+
+		return "my-order";
+	}
 }

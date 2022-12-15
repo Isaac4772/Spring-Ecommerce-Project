@@ -39,7 +39,7 @@ $(document).ready(function() {
 				}
 				else {
 					localStorage.clear();
-					alert("Order had been successfully completed.")
+					alert("Your order has been sucessfully placed. Your order id is " + result + "\n Thank you very much.")
 					window.location.href = '/'
 				}
 
