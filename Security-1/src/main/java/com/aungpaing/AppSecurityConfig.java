@@ -18,6 +18,7 @@ public class AppSecurityConfig {
 
 	@Bean
 	public UserDetailsService userDetailsService() {
+
 		PasswordEncoder encoder = passwordEncoder();
 
 		UserDetails user1 = User.withUsername("jk@gmail.com").password(encoder.encode("123")).roles("admin").build();
@@ -34,26 +35,13 @@ public class AppSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests().requestMatchers("/", "/css/**").permitAll()
+
+		http.authorizeHttpRequests().requestMatchers("/", "/css/**").permitAll()
 				.requestMatchers("/product/edit/**", "/product/delete/**").hasRole("admin")
-				.requestMatchers("/proudct/add").hasAnyRole("admin", "staff").anyRequest().authenticated() // filter/
-																											// authorize
-				.and()
-				// .httpBasic()
-				.formLogin() // login
-				.loginPage("/login").permitAll().and().logout().logoutSuccessUrl("/").permitAll().and()
+				.requestMatchers("/product/add").hasAnyRole("admin", "staff").anyRequest().authenticated().and()
+				.formLogin().loginPage("/login").permitAll().and().logout().logoutSuccessUrl("/").permitAll().and()
 				.exceptionHandling().accessDeniedPage("/403");
-
 		return http.build();
-//		http
-//        .authorizeHttpRequests((authorize) -> authorize
-//            .anyRequest()
-//            
-//            .authenticated()
-//        );
-		// ...
-
-		// return http.build();
 	}
 
 	@Bean
