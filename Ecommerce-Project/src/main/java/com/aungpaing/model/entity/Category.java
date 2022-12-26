@@ -3,10 +3,15 @@ package com.aungpaing.model.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.*;
-
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * Entity implementation class for Entity: Category

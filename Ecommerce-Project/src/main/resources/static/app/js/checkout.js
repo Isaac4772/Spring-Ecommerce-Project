@@ -29,6 +29,9 @@ $(document).ready(function() {
 		//call server with ajax
 		$.ajax({
 			type: 'POST',
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
 			contentType: 'application/json',
 			dataType: 'json',
 			data: JSON.stringify(orderInfo),

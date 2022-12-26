@@ -1,5 +1,6 @@
 package com.aungpaing.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ import com.aungpaing.controller.request.OrderRequestData;
 import com.aungpaing.model.entity.OrderItem;
 import com.aungpaing.model.entity.OrderStatus;
 import com.aungpaing.model.entity.Orders;
+import com.aungpaing.model.entity.User;
 import com.aungpaing.model.service.OrderService;
 import com.aungpaing.model.service.ProductService;
+import com.aungpaing.model.service.UserService;
 
 @Controller
 public class CartController {
@@ -28,22 +31,26 @@ public class CartController {
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
+	private UserService userService;
+
 	@GetMapping("/cart/details")
 	public String home() {
 		return "cart";
 	}
 
 	@GetMapping("/cart/checkout")
-	public String checkoutPage(ModelMap map) {
-		map.put("name", "Aung Aung");
-		map.put("phone", "0912345567");
-		map.put("email", "aungaung@gmail.com");
-		map.put("address", "Yangon");
+	public String checkoutPage(ModelMap map, Principal principal) {
+		User loginUser = userService.profile(principal.getName());
+		map.put("name", loginUser.getName());
+		map.put("phone", loginUser.getPhone());
+		map.put("email", loginUser.getEmail());
+		map.put("address", loginUser.getAddress());
 		return "checkout";
 	}
 
 	@PostMapping("/cart/place-order")
-	public @ResponseBody String makeOrder(@RequestBody OrderRequestData obj) {
+	public @ResponseBody String makeOrder(@RequestBody OrderRequestData obj, Principal principal) {
 
 		try {
 			OrderReceiverData receiver = obj.getReceiver();
@@ -56,7 +63,7 @@ public class CartController {
 			newOrder.setShippingEmail(receiver.getEmail());
 			newOrder.setShippingName(receiver.getName());
 			newOrder.setShippingPhone(receiver.getPhone());
-			newOrder.setCustomer(null);
+			newOrder.setCustomer(userService.profile(principal.getName()));
 
 			// add order items
 			for (var item : itemList) {
