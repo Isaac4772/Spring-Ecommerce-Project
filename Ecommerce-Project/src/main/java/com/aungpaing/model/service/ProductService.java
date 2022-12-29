@@ -15,13 +15,19 @@ public class ProductService {
 	private ProductRepo repo;
 
 	public List<Product> findAll() {
-
 		return repo.findAll();
+	}
 
+	public Product save(Product prod) {
+		return repo.save(prod);
+	}
+
+	public void deleteById(long id) {
+		repo.deleteById(id);
 	}
 
 	public Product findById(long id) {
-		// TODO Auto-generated method stub
 		return repo.findById(id).orElse(new Product());
 	}
+	
 }

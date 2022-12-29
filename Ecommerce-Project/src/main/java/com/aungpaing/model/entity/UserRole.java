@@ -1,5 +1,5 @@
 package com.aungpaing.model.entity;
 
 public enum UserRole {
-	admin, customer
+	admin, customer, seller
 }

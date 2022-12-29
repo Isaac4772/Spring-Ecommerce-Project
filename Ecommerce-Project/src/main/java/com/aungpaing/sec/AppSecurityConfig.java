@@ -39,8 +39,8 @@ public class AppSecurityConfig {
 		http.authorizeHttpRequests()
 				.requestMatchers("/", "/shop", "/login", "/register", "/shop/products/**", "/cart/details", "/css/**",
 						"/app/**", "/fonts/**", "/images/**", "/js/**", "/scss/**", "/uploads/**")
-				.permitAll().requestMatchers("/product/edit/**", "/product/delete/**").hasRole("admin")
-				.requestMatchers("/product/add").hasAnyRole("admin", "staff").anyRequest().authenticated().and()
+				.permitAll().requestMatchers("/admin/**").hasRole("admin")
+				.requestMatchers("/product/add").hasAnyRole("admin").anyRequest().authenticated().and()
 				.formLogin().loginPage("/login").permitAll().and().logout().logoutSuccessUrl("/").permitAll().and()
 				.exceptionHandling().accessDeniedPage("/403");
 		return http.build();

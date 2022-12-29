@@ -3,8 +3,8 @@ package com.aungpaing.model.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,10 +32,10 @@ public class Category implements Serializable {
 	private String name;
 	private String photo;
 
-	@CreatedDate
+	@CreationTimestamp
 	private LocalDate created_at;
 
-	@LastModifiedDate
+	@UpdateTimestamp
 	private LocalDate updated_at;
 
 	public Category() {

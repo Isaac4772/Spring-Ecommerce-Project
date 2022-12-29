@@ -11,6 +11,10 @@ import com.aungpaing.model.entity.User;
 
 public class MyUserDetails implements UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private User user;
 
 	public MyUserDetails(User user) {
@@ -19,7 +23,7 @@ public class MyUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		SimpleGrantedAuthority authorities = new SimpleGrantedAuthority(user.getRole().name());
+		SimpleGrantedAuthority authorities = new SimpleGrantedAuthority("ROLE_"+user.getRole().name());
 		return Arrays.asList(authorities);
 	}
 

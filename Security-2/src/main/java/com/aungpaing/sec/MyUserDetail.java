@@ -11,6 +11,7 @@ import com.aungpaing.model.entity.User;
 
 public class MyUserDetail implements UserDetails{
 	
+	private static final long serialVersionUID = 1L;
 	private User user;
 	
 	public MyUserDetail(User user) {

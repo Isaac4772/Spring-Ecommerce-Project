@@ -22,6 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
 		}
 
 		MyUserDetails myUserDetails = new MyUserDetails(user);
+		System.out.println(myUserDetails.getAuthorities());
 		return myUserDetails;
 	}
 

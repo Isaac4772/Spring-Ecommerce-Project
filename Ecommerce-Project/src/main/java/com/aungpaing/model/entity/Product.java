@@ -3,8 +3,8 @@ package com.aungpaing.model.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,10 +40,10 @@ public class Product implements Serializable {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	@CreatedDate
+	@CreationTimestamp
 	private LocalDate created_at;
 
-	@LastModifiedDate
+	@UpdateTimestamp
 	private LocalDate updated_at;
 
 	public long getId() {
@@ -112,6 +112,15 @@ public class Product implements Serializable {
 
 	public String getPhotoUrl() {
 		return "/uploads/" + id + "/" + photo;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", photo=" + photo + ", description="
+				+ description + ", category=" + category + ", created_at=" + created_at + ", updated_at=" + updated_at
+				+ "]";
 	}
 
 	public Product() {
