@@ -7,13 +7,18 @@
 <style>
 .productImg {
 	width: 400px;
-	height: 400px;
+	height: 570px;
 	object-fit: cover;
 	border: none;
+	transition: 0.5s ease;
 }
 
 .productImg:hover {
 	cursor: pointer;
+	-webkit-transform: scale(0.9);
+	-ms-transform: scale(0.9);
+	transform: scale(0.9);
+	transition: 0.5s ease;
 }
 </style>
 </head>
@@ -30,7 +35,7 @@
 			<div class="row">
 				<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
 					<div>
-						<div class="mb-4 d-flex justify-content-center">
+						<div class="mb-4 d-flex justify-content-center shrink">
 							<label class="form-label text-white m-1" for="formFile"><img
 								th:src="@{${product.photo== null} ? '/images/upload-photo.jpg' : ${product.photoUrl}} "
 								alt="example placeholder" class="productImg img-fluid rounded" /></label>
@@ -57,8 +62,15 @@
 								placeholder="product summary" />
 						</div>
 
+						<div class="col-6 col-md-6 col-sm-6 col-xs-12 col-12 mb-3">
+							<label for="" class="form-label">Category</label>
+							<input type="text" class="form-control"
+								th:field="*{category.name}" id="nameInput" required
+								placeholder="Enter Category" />
+						</div>
+
 						<div
-							class="form-group col-6 col-md-6 col-sm-6 col-xs-12 col-12 mb-3">
+							class="form-group col-6 col-md-6 col-sm-6 col-xs-12 col-12 mb-3 d-none">
 							<label for="category">Category</label> <select
 								class="form-control" id="category" th:field="*{category.id}">
 								<th:block th:each="cate: ${categories}">
@@ -111,6 +123,78 @@
 
 	<th:block layout:fragment="js">
 		<script th:src="@{/app/js/changeImg.js}"></script>
+		<script th:inline="javascript">
+			var real_data = /*[[${categories}]]*/'noValue';
+			var categoryNames = []
+			$.each(real_data, function(i) {
+				categoryNames.push(real_data[i].name)
+			});
+
+			$(document)
+					.ready(
+							function() {
+								$("#nameInput").autocomplete({
+									minLength : 1,
+									source : categoryNames,
+									select : function(e, ui) {
+										return ui.item.value;
+									}
+								})
+
+								$('#nameInput')
+										.change(
+												function() {
+													console
+															.log(categoryNames
+																	.indexOf($(
+																			'#nameInput')
+																			.val()))
+													if (categoryNames
+															.indexOf($(
+																	'#nameInput')
+																	.val()) == -1) {
+														let value = categoryNames.length + 1
+														let name = $(
+																'#nameInput')
+																.val()
+														let count = $(
+																"#category")
+																.children().length + 1
+														console.log(count)
+														console.log(value)
+														if (count > value)
+															$('#category')
+																	.children()
+																	.last()
+																	.remove()
+														$('#category')
+																.append(
+																		'<option value="'+value+'"  selected>'
+																				+ name
+																				+ '</option>');
+													} else {
+														$("select option")
+																.filter(
+																		function() {
+																			//may want to use $.trim in here
+																			return $(
+																					this)
+																					.text() == $(
+																					'#nameInput')
+																					.val();
+																		})
+																.prop(
+																		'selected',
+																		true)
+													}
+												})
+							});
+		</script>
+
+		<link rel="stylesheet"
+			href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	</th:block>
 </body>
 </html>

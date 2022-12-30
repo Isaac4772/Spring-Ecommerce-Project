@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-template}">
+<head>
+<title>Categories</title>
+
+<style>
+tr.clickable-row td {
+	cursor: pointer;
+}
+
+tr.clickable-row:hover {
+	color: #82B1FF;
+}
+</style>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="page-content">
+
+		<!-- Page Heading -->
+		<h1 class="h3 mb-2 text-gray-800">Categories</h1>
+		<p class="mb-4">
+			DataTables is a third party plugin that is used to generate the demo
+			table below. For more information about DataTables, please visit the
+			<a target="_blank" href="https://datatables.net">official
+				DataTables documentation</a>
+			.
+		</p>
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-dark">Category Information</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>Code</th>
+								<th>Name</th>
+								<th>Added Date</th>
+								<th>Last Updated</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Code</th>
+								<th>Name</th>
+								<th>Added Date</th>
+								<th>Last Updated</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<th:block th:each="cate: ${categories}">
+								<tr class='clickable-row'
+									th:onclick="'window.location.href=\'/admin/category/edit/' + ${cate.id} + '\''">
+									<td th:text="${cate.id!= null} ? ${cate.id} : '-'"></td>
+									<td th:text="${cate.name != null} ? ${cate.name} : '-'"></td>
+									<td
+										th:text="${cate.created_at != null} ? ${cate.created_at } : '-'"></td>
+									<td
+										th:text="${cate.updated_at != null} ? ${cate.updated_at } : '-'"></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

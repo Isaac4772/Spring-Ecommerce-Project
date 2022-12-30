@@ -1,7 +1,6 @@
 package com.aungpaing.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aungpaing.FileUploadUtil;
+import com.aungpaing.model.entity.Category;
 import com.aungpaing.model.entity.Product;
 import com.aungpaing.model.service.CategoryService;
 import com.aungpaing.model.service.ProductService;
@@ -54,24 +54,33 @@ public class AdminProductController {
 	public String saveProduct(@ModelAttribute("products") Product product,
 			@RequestParam("photoName") MultipartFile file) throws IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		System.out.println(fileName.getClass().getSimpleName());
 		if ((product.getId() == 0 || product.getId() != 0) && !fileName.equals("")) {
 			product.setPhoto(fileName);
 		}
 		if (fileName.equals("")) {
 			Product product2 = productService.findById(product.getId());
-			System.out.println(product2);
 			if (product2.getId() != 0) {
 				product.setPhoto(product2.getPhoto());
+				addNewCategory(cateService, product);
 				productService.save(product);
 				return "redirect:/admin/product/list";
 			}
 		}
+		addNewCategory(cateService, product);
 		var saveProduct = productService.save(product);
 		String uploadDir = "uploads/" + saveProduct.getId();
 		FileUploadUtil.savePhoto(uploadDir, fileName, file);
 
 		return "redirect:/admin/product/list";
+	}
+	
+	public static void addNewCategory(CategoryService cateService, Product product) {
+		long count = cateService.count();
+		if (count < product.getCategory().getId()) {
+			Category category = new Category();
+			category.setName(product.getCategory().getName());
+			cateService.save(category);
+		}
 	}
 
 	@GetMapping("/admin/product/edit/{id}")

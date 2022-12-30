@@ -107,8 +107,7 @@
 							List</a>
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Category</h6>
-						<a class="collapse-item" href="404.html">Add Category</a>
-						<a class="collapse-item" href="blank.html">Category List</a>
+						<a class="collapse-item" th:classappend="${categoriesActive}"  th:href="@{/admin/category/list}">Category List</a>
 						
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Users</h6>

@@ -18,4 +18,16 @@ public class CategoryService {
 		return repo.findAll();
 	}
 
+	public Category findById(int id) {
+		return repo.findById(id).orElse(new Category());
+	}
+
+	public long count() {
+		return repo.count();
+	}
+
+	public void save(Category category) {
+		repo.save(category);
+	}
+
 }
