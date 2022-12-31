@@ -32,7 +32,17 @@ tr.clickable-row:hover {
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-dark">Product Information</h6>
+				<div class="row">
+					<div class="col-6">
+						<h6 class="m-0 font-weight-bold text-dark">Product
+							Information</h6>
+					</div>
+
+					<div class="col-6">
+						<a th:href="@{/admin/product/add}"
+							class="btn btn-success py-0 float-right">Add New Product</a>
+					</div>
+				</div>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
