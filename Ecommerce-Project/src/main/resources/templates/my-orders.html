@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="store-front-template"
+	th:with="title1='Orders', title2='My Orders'">
+<head>
+<title>Orders</title>
+<style>
+tr.clickable-row td {
+	cursor: pointer;
+}
+
+tr.clickable-row:hover {
+	color: #ffa45c;
+}
+</style>
+</head>
+<body>
+
+	<section class="ftco-section ftco-cart" layout:fragment="content-body">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 ftco-animate">
+					<div class="cart-list">
+						<table class="table">
+							<thead class="thead-primary">
+								<tr class="text-center">
+									<th>Order Id</th>
+									<th>Shipping Name</th>
+									<th>Shipping Phone</th>
+									<th>Shipping Email</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody class="cart-items">
+								<th:block th:each="order: ${orders}">
+									<tr class="clickable-row"
+										th:onclick="'window.location.href=\'/my-orders/details/' + ${order.id} + '\''">
+										<td th:text="${order.id}"></td>
+										<td th:text="${order.shippingName}"></td>
+										<td th:text="${order.shippingPhone}"></td>
+										<td th:text="${order.shippingEmail}"></td>
+										<td th:text="${order.status.name}"></td>
+									</tr>
+								</th:block>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

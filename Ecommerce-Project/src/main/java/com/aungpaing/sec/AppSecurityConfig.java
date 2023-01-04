@@ -36,13 +36,12 @@ public class AppSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-		http.authorizeHttpRequests()
+		http.csrf().disable().authorizeHttpRequests()
 				.requestMatchers("/", "/shop", "/login", "/register", "/shop/products/**", "/cart/details", "/css/**",
-						"/app/**", "/fonts/**", "/images/**", "/js/**", "/scss/**", "/uploads/**")
-				.permitAll().requestMatchers("/admin/**").hasRole("admin")
-				.requestMatchers("/product/add").hasAnyRole("admin").anyRequest().authenticated().and()
-				.formLogin().loginPage("/login").permitAll().and().logout().logoutSuccessUrl("/").permitAll().and()
-				.exceptionHandling().accessDeniedPage("/403");
+						"/app/**", "/fonts/**", "/images/**", "/js/**", "/scss/**", "/uploads/**", "/user/save")
+				.permitAll().requestMatchers("/admin/**").hasRole("admin").requestMatchers("/product/**")
+				.hasAnyRole("admin", "seller").anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
+				.and().logout().logoutSuccessUrl("/").permitAll().and().exceptionHandling().accessDeniedPage("/403");
 		return http.build();
 	}
 }

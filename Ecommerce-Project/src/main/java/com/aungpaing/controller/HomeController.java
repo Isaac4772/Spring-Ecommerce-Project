@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.aungpaing.model.entity.User;
 import com.aungpaing.model.service.CategoryService;
 import com.aungpaing.model.service.ProductService;
 
@@ -44,13 +45,14 @@ public class HomeController {
 	}
 
 	@GetMapping("/register")
-	public String registerPage() {
+	public String registerPage(ModelMap map) {
+		map.put("user", new User());
 		return "register";
 	}
 
-	@GetMapping("/shop/orders")
-	public String myOrderPage() {
-
-		return "my-order";
+	@GetMapping("/seller/option")
+	public String sellerOptionPage() {
+		
+		return "";
 	}
 }

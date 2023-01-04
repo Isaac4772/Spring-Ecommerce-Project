@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin-template}">
 <head>
-<title>Products</title>
+<title>Orders</title>
 
 <style>
 tr.clickable-row td {
@@ -20,7 +20,7 @@ tr.clickable-row:hover {
 	<div class="container-fluid" layout:fragment="page-content">
 
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">Products</h1>
+		<h1 class="h3 mb-2 text-gray-800">Orders</h1>
 		<p class="mb-4">
 			DataTables is a third party plugin that is used to generate the demo
 			table below. For more information about DataTables, please visit the
@@ -33,14 +33,9 @@ tr.clickable-row:hover {
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<div class="row">
-					<div class="col-6">
-						<h6 class="m-0 font-weight-bold text-dark">Product
+					<div class="col-12">
+						<h6 class="m-0 font-weight-bold text-dark">Order
 							Information</h6>
-					</div>
-
-					<div class="col-6">
-						<a th:href="@{/admin/product/add}"
-							class="btn btn-dark py-0 float-right">Add New Product</a>
 					</div>
 				</div>
 			</div>
@@ -50,29 +45,28 @@ tr.clickable-row:hover {
 						cellspacing="0">
 						<thead>
 							<tr>
-								<th>Code</th>
-								<th>Identifier</th>
-								<th>Description</th>
-								<th>Price</th>
-								<th>Category</th>
-								<th>Added Date</th>
-								<th>Last Updated</th>
+								<th>Id</th>
+								<th>Customer</th>
+								<th>Email</th>
+								<th>Phone</th>
+								<th>Address</th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
-							<th:block th:each="prod: ${products}">
+							<th:block th:each="order: ${orders}">
 								<tr class='clickable-row'
-									th:onclick="'window.location.href=\'/admin/product/edit/' + ${prod.id} + '\''">
-									<td th:text="${prod.id!= null} ? ${prod.id} : '-'"></td>
-									<td th:text="${prod.name != null} ? ${prod.name} : '-'"></td>
+									th:onclick="'window.location.href=\'/admin/order/details/' + ${order.id} + '\''">
+									<td th:text="${order.id!= null} ? ${order.id} : '-'"></td>
 									<td
-										th:text="${prod.description != null} ? ${prod.description} : '-'"></td>
-									<td th:text="${prod.price != null} ? ${prod.price } : '-'"></td>
-									<td th:text="${prod.category.name}"></td>
+										th:text="${order.customer.name != null} ? ${order.customer.name} : '-'"></td>
 									<td
-										th:text="${prod.created_at != null} ? ${prod.created_at } : '-'"></td>
+										th:text="${order.customer.email != null} ? ${order.customer.email} : '-'"></td>
 									<td
-										th:text="${prod.updated_at != null} ? ${prod.updated_at } : '-'"></td>
+										th:text="${order.customer.phone != null} ? ${order.customer.phone} : '-'"></td>
+									<td
+										th:text="${order.customer.address!= null} ? ${order.customer.address} : '-'"></td>
+									<td th:text="${order.status.name}"></td>
 								</tr>
 							</th:block>
 						</tbody>

@@ -10,22 +10,32 @@
 
 	<section class="ftco-section ftco-cart" layout:fragment="content-body">
 		<div class="container">
+
+			<div class="alert alert-danger" th:if="${param.error}">
+				<p class="text-center">
+					The user with this email already exists. Would you like to
+					<a th:href="@{/login}">login </a>
+					instead?
+				</p>
+			</div>
+
 			<div class="row d-flex justify-content-center">
-				<form action="" class="form col-6">
+				<form th:action="@{/user/save}" class="form col-6" method="POST"
+					th:object="${user}">
 
 					<div class="row">
 						<div class="col">
 							<div class="mb-3">
 								<label for="name" class="form-label">Name</label>
 								<input type="text" class="form-control" placeholder="Enter Name"
-									required />
+									th:field="*{name}" required />
 							</div>
 						</div>
 
 						<div class="col">
 							<div class="mb-3">
 								<label for="email" class="form-label">Email</label>
-								<input type="email" class="form-control"
+								<input type="email" class="form-control" th:field="*{email}"
 									placeholder="example@gamil.com" required />
 							</div>
 						</div>
@@ -36,7 +46,7 @@
 							<div class="mb-3">
 								<label for="phone" class="form-label">Phone</label>
 								<input type="tel" class="form-control" placeholder="Enter phone"
-									required />
+									th:field="*{phone}" required />
 							</div>
 						</div>
 
@@ -44,14 +54,14 @@
 							<div class="mb-3">
 								<label for="password" class="form-label">Password</label>
 								<input type="password" class="form-control"
-									placeholder="password" required />
+									th:field="*{password}" placeholder="password" required />
 							</div>
 						</div>
 					</div>
 
 					<div class="mb-3">
 						<label for="address" class="form-label">Address</label>
-						<input type="text" class="form-control"
+						<input type="text" class="form-control" th:field="*{address}"
 							placeholder="Enter Full Address" required />
 					</div>
 

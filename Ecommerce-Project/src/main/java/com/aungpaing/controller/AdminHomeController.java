@@ -10,6 +10,7 @@ public class AdminHomeController {
 	@GetMapping("/admin")
 	public String homePage(ModelMap map) {
 		map.put("dashboardActive", "active");
+		map.put("hideSearchBar", "d-none");
 		return "admin-dashboard";
 	}
 
@@ -30,6 +31,5 @@ public class AdminHomeController {
 //
 //		return "register";
 //	}
-	
 
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -21,7 +22,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class Orders implements Serializable {
+public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -30,7 +31,7 @@ public class Orders implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
-	private User Customer;
+	private User customer;
 
 	@OneToMany(mappedBy = "order", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<OrderItem> items = new ArrayList<OrderItem>();
@@ -63,11 +64,11 @@ public class Orders implements Serializable {
 	}
 
 	public User getCustomer() {
-		return Customer;
+		return customer;
 	}
 
 	public void setCustomer(User customer) {
-		Customer = customer;
+		this.customer = customer;
 	}
 
 	public List<OrderItem> getItems() {

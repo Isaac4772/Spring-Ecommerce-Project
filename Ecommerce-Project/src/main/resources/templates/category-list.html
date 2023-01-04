@@ -39,7 +39,7 @@ tr.clickable-row:hover {
 					</div>
 
 					<div class="col-6">
-						<button class="btn btn-success py-0 float-right"
+						<button class="btn btn-dark py-0 float-right"
 							data-target="#addModal" data-toggle="modal">Add New
 							Category</button>
 					</div>
@@ -58,18 +58,10 @@ tr.clickable-row:hover {
 								<th>Last Updated</th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th>Code</th>
-								<th>Name</th>
-								<th>Added Date</th>
-								<th>Last Updated</th>
-							</tr>
-						</tfoot>
 						<tbody>
 							<th:block th:each="cate: ${categories}">
 								<tr class='clickable-row' data-toggle="modal"
-									th:attr="data-id=${cate.id}, data-name=${cate.name}"
+									th:attr="data-id=${cate.id}, data-name=${cate.name}, data-created_at=${cate.created_at}"
 									data-target="#editModal">
 									<td th:text="${cate.id!= null} ? ${cate.id} : '-'"></td>
 									<td th:text="${cate.name != null} ? ${cate.name} : '-'"></td>
@@ -138,6 +130,7 @@ tr.clickable-row:hover {
 						<div class="modal-body">
 
 							<input type="hidden" th:field="*{id}" id="cateId" value="" />
+							<input type="hidden" th:field="*{created_at}" id="cate-created-at" value="" />
 							<div>
 								<label for="" class="form-label">Name</label>
 								<input type="text" class="form-control" th:field="*{name}"
@@ -183,11 +176,13 @@ tr.clickable-row:hover {
 	</div>
 
 	<th:block layout:fragment="js">
+		<script th:src="@{/app/js/searchTable.js}"></script>
 		<script>
 			$(document).ready(function() {
 				$('.clickable-row').click(function() {
 					$('#cateId').val($(this).data('id'))
 					$('#cateName').val($(this).data('name'))
+					$('#cate-created-at').val($(this).data('created_at'))
 					var link = '/admin/category/delete/' + $(this).data('id')
 					$('#deleteBtn').attr('href', link)
 				})

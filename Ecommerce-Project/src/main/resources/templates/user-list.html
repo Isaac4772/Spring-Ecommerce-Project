@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin-template}">
+<head>
+<title>Users</title>
+
+<style>
+tr.clickable-row td {
+	cursor: pointer;
+}
+
+tr.clickable-row:hover {
+	color: #82B1FF;
+}
+</style>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="page-content">
+
+		<!-- Page Heading -->
+		<h1 class="h3 mb-2 text-gray-800">Users</h1>
+		<p class="mb-4">
+			DataTables is a third party plugin that is used to generate the demo
+			table below. For more information about DataTables, please visit the
+			<a target="_blank" href="https://datatables.net">official
+				DataTables documentation</a>
+			.
+		</p>
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<div class="row">
+					<div class="col-6">
+						<h6 class="m-0 font-weight-bold text-dark">User Information</h6>
+					</div>
+
+					<div class="col-6">
+						<a class="btn btn-dark py-0 float-right"
+							th:href="@{/admin/user/add}">Add New User</a>
+					</div>
+				</div>
+
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Phone</th>
+								<th>Address</th>
+								<th>Role</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="user: ${users}">
+								<tr class='clickable-row' data-toggle="modal"
+									th:onclick="'window.location.href=\'/admin/user/edit/' + ${user.id} + '\''">
+									<td th:text="${user.id}"></td>
+									<td th:text="${user.name}"></td>
+									<td th:text="${user.email}"></td>
+									<td th:text="${user.phone}"></td>
+									<td th:text="${user.address}"></td>
+									<td th:text="${user.role}"></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<th:block layout:fragment="js">
+			<script th:src="@{/app/js/searchTable.js}"></script>
+
+			<script>
+				$(document).ready(
+						function() {
+							$('.clickable-row').click(
+									function() {
+										$('#cateId').val($(this).data('id'))
+										$('#cateName')
+												.val($(this).data('name'))
+										var link = '/admin/category/delete/'
+												+ $(this).data('id')
+										$('#deleteBtn').attr('href', link)
+									})
+						})
+			</script>
+		</th:block>
+</body>
+</html>

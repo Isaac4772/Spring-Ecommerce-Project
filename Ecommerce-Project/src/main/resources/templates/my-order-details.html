@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="store-front-template"
+	th:with="title1='Order Information', title2='Orders'">
+<head>
+<title>Order Details</title>
+<style>
+tr.clickable-row td {
+	cursor: pointer;
+}
+
+tr.clickable-row:hover {
+	color: #ffa45c;
+}
+</style>
+</head>
+<body>
+
+	<section class="ftco-section ftco-cart" layout:fragment="content-body">
+
+		<div class="container">
+
+			<div class="row saved-cart-info-content mb-5">
+				<div class="col-xs-12 col-md-3">
+					<div class="row">
+						<div class="col-xs-6 col-md-12">
+							<span class="text-uppercase font-weight-bold">Order Number</span>
+						</div>
+						<div class="col-xs-6 col-md-12">
+							<span th:text="${order.id}"></span>
+						</div>
+					</div>
+					<div class="row mt-md-3">
+						<div class="col-xs-6 col-md-12">
+							<span class="text-uppercase font-weight-bold">Date Placed</span>
+						</div>
+						<div class="col-xs-6 col-md-12">
+							<span
+								th:text="${#temporals.format(order.created_at, 'dd-MM-yyyy hh:mm a')}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-3">
+					<div class="row">
+						<div class="col-xs-6 col-md-12">
+							<span class="text-uppercase font-weight-bold">Shipping
+								Name</span>
+						</div>
+						<div class="col-xs-6 col-md-12">
+							<span th:text="${order.shippingName}"></span>
+						</div>
+					</div>
+					<div class="row mt-md-3">
+						<div class="col-xs-6 col-md-12">
+							<span class="text-uppercase font-weight-bold">Shipping
+								Email</span>
+						</div>
+						<div class="col-xs-6 col-md-12">
+							<span th:text="${order.shippingEmail}"></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-md-3">
+					<div class="row">
+						<div class="col-xs-6 col-md-12">
+							<span class="text-uppercase font-weight-bold">Shipping
+								Phone</span>
+						</div>
+						<div class="col-xs-6 col-md-12">
+							<span th:text="${order.shippingPhone}"></span>
+						</div>
+					</div>
+					<div class="row mt-md-3">
+						<div class="col-xs-6 col-md-12">
+							<span class="text-uppercase font-weight-bold">Total</span>
+						</div>
+						<div class="col-xs-6 col-md-12">
+							<span id="total"></span>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-xs-12 col-md-3">
+					<div class="row">
+						<div class="col-xs-6 col-md-12">
+							<span class="text-uppercase font-weight-bold">Shipping
+								Address</span>
+						</div>
+						<div class="col-xs-6 col-md-12">
+							<span th:text="${order.shippingAddress}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 ftco-animate">
+					<div class="cart-list">
+						<table class="table">
+							<thead class="thead-primary">
+								<tr class="text-center">
+									<th>&nbsp;</th>
+									<th>Product Id</th>
+									<th>Product</th>
+									<th>Quantity</th>
+									<th>Sub Total (MMK)</th>
+								</tr>
+							</thead>
+							<tbody class="cart-items">
+								<th:block th:each="orderItem: ${order.items}">
+									<tr class="clickable-row"
+										th:onclick="'window.location.href=\'/shop/products/' + ${orderItem.product.id} + '\''">
+										<td><img class="img-fluid"
+											th:src="@{${orderItem.product.photo== null} ? '/images/upload-photo.jpg' : ${orderItem.product.photoUrl}} "
+											alt="Colorlib Template" width="70px" height="70px"></td>
+										<td th:text="${orderItem.product.id}"></td>
+										<td th:text="${orderItem.product.name}"></td>
+										<td th:text="${orderItem.quantity}"></td>
+										<td th:text="${orderItem.product.price * orderItem.quantity}"
+											class="sub-total"></td>
+									</tr>
+								</th:block>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<th:block layout:fragment="js">
+		<script>
+			$(document).ready(function() {
+				var sum = 0;
+				// iterate through each td based on class and add the values
+				$("td.sub-total").each(function() {
+
+					var value = $(this).text();
+					// add only if the value is number
+					if (!isNaN(value) && value.length != 0) {
+						sum += parseFloat(value)
+					}
+				})
+				$('span#total').text(sum + ' MMK')
+			})
+		</script>
+	</th:block>
+</body>
+</html>

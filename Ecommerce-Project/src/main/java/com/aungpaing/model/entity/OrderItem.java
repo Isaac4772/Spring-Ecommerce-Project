@@ -22,18 +22,18 @@ public class OrderItem implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
-	private Orders order;
+	private Order order;
 
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
 	private int quantity;
 
-	public Orders getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(Orders order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 

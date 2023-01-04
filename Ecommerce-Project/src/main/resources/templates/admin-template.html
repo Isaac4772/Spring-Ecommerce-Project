@@ -23,7 +23,7 @@
 <body id="page-top">
 
 	<!-- Page Wrapper -->
-		<div id="wrapper">
+	<div id="wrapper">
 
 		<!-- Sidebar -->
 		<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
@@ -43,8 +43,8 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item" th:classappend="${dashboardActive}"><a class="nav-link"
-					th:href="@{/admin}">
+			<li class="nav-item" th:classappend="${dashboardActive}"><a
+					class="nav-link" th:href="@{/admin}">
 					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 				</a></li>
 
@@ -57,7 +57,8 @@
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 					data-toggle="collapse" data-target="#collapseTwo"
-					aria-expanded="true" aria-controls="collapseTwo">
+					aria-expanded="true" aria-controls="collapseTwo"
+					sec:authorize="hasRole('admin')">
 					<i class="fas fa-fw fa-cog"></i> <span>Components</span>
 				</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
@@ -72,7 +73,8 @@
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 					data-toggle="collapse" data-target="#collapseUtilities"
-					aria-expanded="true" aria-controls="collapseUtilities">
+					aria-expanded="true" aria-controls="collapseUtilities"
+					sec:authorize="hasRole('admin')">
 					<i class="fas fa-fw fa-wrench"></i> <span>Utilities</span>
 				</a>
 				<div id="collapseUtilities" class="collapse"
@@ -93,26 +95,36 @@
 			<div class="sidebar-heading">Addons</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item" th:classappend="${pagesActive}"><a class="nav-link collapsed" href="#"
-					data-toggle="collapse" data-target="#collapsePages"
-					aria-expanded="true" aria-controls="collapsePages">
+			<li class="nav-item" th:classappend="${pagesActive}"><a
+					class="nav-link collapsed" href="#" data-toggle="collapse"
+					data-target="#collapsePages" aria-expanded="true"
+					aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i> <span>Pages</span>
 				</a>
 				<div id="collapsePages" class="collapse" th:classappend="${show}"
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Products</h6>
-						<a class="collapse-item" th:href="@{/admin/product/add}" th:classappend="${productAddActive}">Add Product</a>
-						<a class="collapse-item" th:href="@{/admin/product/list}" th:classappend="${productsActive}">Product
-							List</a>
+						<a class="collapse-item" th:href="@{/admin/product/add}"
+							th:classappend="${productAddActive}">Add Product</a>
+						<a class="collapse-item" th:href="@{/admin/product/list}"
+							th:classappend="${productsActive}">Product List</a>
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Category</h6>
-						<a class="collapse-item" th:classappend="${categoriesActive}"  th:href="@{/admin/category/list}">Category List</a>
-						
+						<a class="collapse-item" th:classappend="${categoriesActive}"
+							th:href="@{/admin/category/list}">Category List</a>
+
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Users</h6>
-						<a class="collapse-item" href="404.html">Add User</a>
-						<a class="collapse-item" href="blank.html">User List</a>
+						<a class="collapse-item" th:href="@{/admin/user/add}"
+							th:classappend="${userAddActive}">Add User</a>
+						<a class="collapse-item" th:href="@{/admin/user/list}"
+							th:classappend="${userListActive}">User List</a>
+
+						<div class="collapse-divider"></div>
+						<h6 class="collapse-header">Category</h6>
+						<a class="collapse-item" th:classappend="${ordersActive}"
+							th:href="@{/admin/order/list}">Order List</a>
 					</div>
 				</div></li>
 
@@ -153,19 +165,19 @@
 					</button>
 
 					<!-- Topbar Search -->
-					<form
+					<div
 						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
+						<div class="input-group" th:classappend="${hideSearchBar}">
 							<input type="text" class="form-control bg-light border-0 small"
 								placeholder="Search for..." aria-label="Search"
-								aria-describedby="basic-addon2">
+								aria-describedby="basic-addon2" id="search">
 							<div class="input-group-append">
 								<button class="btn btn-dark" type="button">
 									<i class="fas fa-search fa-sm"></i>
 								</button>
 							</div>
 						</div>
-					</form>
+					</div>
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -262,8 +274,8 @@
 								<h6 class="dropdown-header">Message Center</h6>
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" th:src="@{/images/undraw_profile_1.svg}"
-											alt="...">
+										<img class="rounded-circle"
+											th:src="@{/images/undraw_profile_1.svg}" alt="...">
 										<div class="status-indicator bg-success"></div>
 									</div>
 									<div class="font-weight-bold">
@@ -274,8 +286,8 @@
 								</a>
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" th:src="@{/images/undraw_profile_2.svg}"
-											alt="...">
+										<img class="rounded-circle"
+											th:src="@{/images/undraw_profile_2.svg}" alt="...">
 										<div class="status-indicator"></div>
 									</div>
 									<div>
@@ -286,8 +298,8 @@
 								</a>
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" th:src="@{/images/undraw_profile_3.svg}"
-											alt="...">
+										<img class="rounded-circle"
+											th:src="@{/images/undraw_profile_3.svg}" alt="...">
 										<div class="status-indicator bg-warning"></div>
 									</div>
 									<div>
@@ -345,8 +357,8 @@
 									Login
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" th:href="@{#}"
-									data-toggle="modal" data-target="#logoutModal">
+								<a class="dropdown-item" th:href="@{#}" data-toggle="modal"
+									data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>
@@ -384,27 +396,30 @@
 	<a class="scroll-to-top rounded" href="#page-top">
 		<i class="fas fa-angle-up"></i>
 	</a>
-	
+
 	<!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" th:href="@{/logout}">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-	
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" th:href="@{/logout}">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Bootstrap core JavaScript-->
 	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>

@@ -46,6 +46,7 @@ public class AdminProductController {
 		map.put("title", "Product | Add");
 		map.put("heading", "Add Product");
 		map.put("categories", cateService.findAll());
+		map.put("hideSearchBar", "d-none");
 		map.put("delete", "d-none");
 		return "product-add";
 	}
@@ -68,12 +69,13 @@ public class AdminProductController {
 		}
 		addNewCategory(cateService, product);
 		var saveProduct = productService.save(product);
-		String uploadDir = "uploads/" + saveProduct.getId();
-		FileUploadUtil.savePhoto(uploadDir, fileName, file);
-
+		if (!"".equals(fileName)) {
+			String uploadDir = "uploads/" + saveProduct.getId();
+			FileUploadUtil.savePhoto(uploadDir, fileName, file);
+		}
 		return "redirect:/admin/product/list";
 	}
-	
+
 	public static void addNewCategory(CategoryService cateService, Product product) {
 		long count = cateService.count();
 		if (count < product.getCategory().getId()) {
@@ -89,6 +91,7 @@ public class AdminProductController {
 		map.put("categories", cateService.findAll());
 		map.put("title", "Product | Edit");
 		map.put("heading", "Edit Product");
+		map.put("hideSearchBar", "d-none");
 		return "product-add";
 	}
 

@@ -11,6 +11,13 @@
 	object-fit: cover;
 	border: none;
 	transition: 0.5s ease;
+	-webkit-filter: brightness(100%);
+	-webkit-transition: all 0.5s ease; -moz-transition : all 0.5s ease;
+	-o-transition : all 0.5s ease; -ms-transition : all 0.5s ease;
+	transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
 }
 
 .productImg:hover {
@@ -19,6 +26,7 @@
 	-ms-transform: scale(0.9);
 	transform: scale(0.9);
 	transition: 0.5s ease;
+	-webkit-filter: brightness(50%);
 }
 </style>
 </head>
@@ -50,6 +58,7 @@
 				<div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 col-12">
 					<div class="row">
 						<input type="hidden" th:field="*{id}" />
+						<input type="hidden" th:field="*{created_at}" />
 						<div class="col-6 col-md-6 col-sm-6 col-xs-12 col-12 mb-3">
 							<label for="" class="form-label">Identifier</label>
 							<input type="text" class="form-control" th:field="*{name}"

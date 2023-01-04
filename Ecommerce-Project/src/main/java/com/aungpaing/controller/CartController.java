@@ -16,7 +16,7 @@ import com.aungpaing.controller.request.OrderReceiverData;
 import com.aungpaing.controller.request.OrderRequestData;
 import com.aungpaing.model.entity.OrderItem;
 import com.aungpaing.model.entity.OrderStatus;
-import com.aungpaing.model.entity.Orders;
+import com.aungpaing.model.entity.Order;
 import com.aungpaing.model.entity.User;
 import com.aungpaing.model.service.OrderService;
 import com.aungpaing.model.service.ProductService;
@@ -57,7 +57,7 @@ public class CartController {
 			List<OrderProductData> itemList = obj.getOrderItems();
 
 			// create new order
-			Orders newOrder = new Orders();
+			Order newOrder = new Order();
 			newOrder.setStatus(OrderStatus.pending);
 			newOrder.setShippingAddress(receiver.getAddress());
 			newOrder.setShippingEmail(receiver.getEmail());
@@ -76,7 +76,7 @@ public class CartController {
 			}
 
 			// save order to db
-			Orders savedOrder = orderService.save(newOrder);
+			Order savedOrder = orderService.save(newOrder);
 			return savedOrder.getId() + "";
 		} catch (Exception e) {
 			return "";

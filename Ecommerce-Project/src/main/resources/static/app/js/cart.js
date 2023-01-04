@@ -125,7 +125,7 @@ $(document).ready(function() {
 										</div>
 									</td>
 
-									<td class="total">${subTotal} ks.</td>
+									<td class="total">${subTotal}</td>
 								</tr>`
 
 			html += tr
@@ -133,8 +133,8 @@ $(document).ready(function() {
 
 		$('tbody.cart-items').html(html);
 
-		$('.sub-total').text(total + " ks.")
-		$('.grand-total').text(total + " ks.")
+		$('.sub-total').text(total + " MMK")
+		$('.grand-total').text(total + " MMK")
 
 		if (cartItemListObj.length == 0) {
 			$('a.btn-checkout').removeAttr('href')
