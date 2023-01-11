@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aungpaing.model.entity.Category;
+import com.aungpaing.model.entity.Product;
 import com.aungpaing.model.repo.CategoryRepo;
 
 @Service
@@ -26,8 +27,8 @@ public class CategoryService {
 		return repo.count();
 	}
 
-	public void save(Category category) {
-		repo.save(category);
+	public Category save(Category cate) {
+		return repo.save(cate);
 	}
 
 	public void deleteById(int id) {

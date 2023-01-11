@@ -9,6 +9,13 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
+	rel="stylesheet" />
+<link th:href="@{/css/admin-style.css}" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+
 <!-- Custom fonts for this template-->
 <link th:href="@{/vendor/fontawesome-free/css/all.min.css}"
 	rel="stylesheet" type="text/css">
@@ -111,6 +118,8 @@
 							th:classappend="${productsActive}">Product List</a>
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Category</h6>
+						<a class="collapse-item" th:href="@{/admin/category/add}"
+							th:classappend="${categoryAddActive}">Add Category</a>
 						<a class="collapse-item" th:classappend="${categoriesActive}"
 							th:href="@{/admin/category/list}">Category List</a>
 
@@ -166,8 +175,8 @@
 
 					<!-- Topbar Search -->
 					<div
-						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group" th:classappend="${hideSearchBar}">
+						class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+						<div class="input-group">
 							<input type="text" class="form-control bg-light border-0 small"
 								placeholder="Search for..." aria-label="Search"
 								aria-describedby="basic-addon2" id="search">

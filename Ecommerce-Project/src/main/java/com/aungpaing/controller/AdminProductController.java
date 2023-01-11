@@ -1,6 +1,11 @@
 package com.aungpaing.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Comparator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +51,6 @@ public class AdminProductController {
 		map.put("title", "Product | Add");
 		map.put("heading", "Add Product");
 		map.put("categories", cateService.findAll());
-		map.put("hideSearchBar", "d-none");
 		map.put("delete", "d-none");
 		return "product-add";
 	}
@@ -62,12 +66,10 @@ public class AdminProductController {
 			Product product2 = productService.findById(product.getId());
 			if (product2.getId() != 0) {
 				product.setPhoto(product2.getPhoto());
-				addNewCategory(cateService, product);
 				productService.save(product);
 				return "redirect:/admin/product/list";
 			}
 		}
-		addNewCategory(cateService, product);
 		var saveProduct = productService.save(product);
 		if (!"".equals(fileName)) {
 			String uploadDir = "uploads/" + saveProduct.getId();
@@ -76,28 +78,33 @@ public class AdminProductController {
 		return "redirect:/admin/product/list";
 	}
 
-	public static void addNewCategory(CategoryService cateService, Product product) {
-		long count = cateService.count();
-		if (count < product.getCategory().getId()) {
-			Category category = new Category();
-			category.setName(product.getCategory().getName());
-			cateService.save(category);
-		}
-	}
-
 	@GetMapping("/admin/product/edit/{id}")
 	public String editPage(@PathVariable("id") int id, ModelMap map) {
 		map.put("product", productService.findById(id));
 		map.put("categories", cateService.findAll());
 		map.put("title", "Product | Edit");
 		map.put("heading", "Edit Product");
-		map.put("hideSearchBar", "d-none");
 		return "product-add";
 	}
 
 	@GetMapping("/admin/product/delete/{id}")
-	public String deleteProduct(@PathVariable("id") int id) {
+	public String deleteProduct(@PathVariable("id") int id) throws IOException {
 		productService.deleteById(id);
+		File dir = new File("uploads/" + id); // path to the directory
+		deleteDir(dir);
 		return "redirect:/admin/product/list";
+	}
+	
+	public static boolean deleteDir(File dir) {
+		if (dir.isDirectory()) {
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++) {
+				boolean success = deleteDir(new File(dir, children[i]));
+				if (!success) {
+					return false;
+				}
+			}
+		}
+		return dir.delete();
 	}
 }

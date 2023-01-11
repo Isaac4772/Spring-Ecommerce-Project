@@ -81,5 +81,9 @@ public class Category implements Serializable {
 	public void setUpdated_at(LocalDate updated_at) {
 		this.updated_at = updated_at;
 	}
+	
+	public String getPhotoUrl() {
+		return "/uploads_category/" + id + "/" + photo;
+	}
 
 }

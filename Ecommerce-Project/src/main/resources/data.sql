@@ -1,4 +1,7 @@
-INSERT INTO categories(name)VALUES('Shirts & Tops'),('Coats'),('Jackets'),('Winter Coats');
+INSERT INTO categories(name, photo)VALUES('Shirts & Tops', 'shirts&tops.jpg');
+INSERT INTO categories(name, photo)VALUES('Coats', 'coats.jpg');
+INSERT INTO categories(name, photo)VALUES('Dress', 'dress.jpg');
+INSERT INTO categories(name, photo)VALUES('Jeans', 'jeans.jpg');
 
 INSERT INTO products(name,price,photo,category_id,description)VALUES('Product 1', 30000, 'product-1.jpg',1,'This is description');
 INSERT INTO products(name,price,photo,category_id,description)VALUES('Product 2', 23000, 'product-2.jpg',1,'This is description');
