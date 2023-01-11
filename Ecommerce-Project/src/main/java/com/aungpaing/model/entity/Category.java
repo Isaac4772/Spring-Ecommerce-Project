@@ -83,7 +83,7 @@ public class Category implements Serializable {
 	}
 	
 	public String getPhotoUrl() {
-		return "/uploads_category/" + id + "/" + photo;
+		return "/uploads/category/" + id + "/" + photo;
 	}
 
 }

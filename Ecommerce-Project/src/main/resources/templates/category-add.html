@@ -47,7 +47,7 @@
 					<div>
 						<div class="mb-4 d-flex justify-content-center shrink">
 							<label class="form-label text-white m-1" for="formFile"><img
-								th:src="@{/../uploads_category/2/coats.jpg}"
+								th:src="@{${category.photo== null} ? '/images/upload-photo.jpg' : ${category.photoUrl}}"
 								alt="example placeholder" class="productImg img-fluid rounded" /></label>
 						</div>
 						<div class="d-flex justify-content-center">

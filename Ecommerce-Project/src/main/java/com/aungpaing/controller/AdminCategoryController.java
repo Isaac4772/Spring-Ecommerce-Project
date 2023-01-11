@@ -2,17 +2,11 @@ package com.aungpaing.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Comparator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aungpaing.FileUploadUtil;
 import com.aungpaing.model.entity.Category;
-import com.aungpaing.model.entity.Product;
 import com.aungpaing.model.service.CategoryService;
 
 @Controller
@@ -70,7 +63,7 @@ public class AdminCategoryController {
 		}
 		var saveCategory = categoryService.save(category);
 		if (!"".equals(fileName)) {
-			String uploadDir = "uploads_category/" + saveCategory.getId();
+			String uploadDir = "uploads/category/" + saveCategory.getId();
 			FileUploadUtil.savePhoto(uploadDir, fileName, file);
 		}
 		return "redirect:/admin/category/list";
@@ -88,7 +81,7 @@ public class AdminCategoryController {
 	@GetMapping("/admin/category/delete/{id}")
 	public String deleteProduct(@PathVariable("id") int id) throws IOException {
 		categoryService.deleteById(id);
-		File dir = new File("uploads_category/" + id); // path to the directory
+		File dir = new File("uploads/category/" + id); // path to the directory
 		deleteDir(dir);
 		return "redirect:/admin/category/list";
 	}
