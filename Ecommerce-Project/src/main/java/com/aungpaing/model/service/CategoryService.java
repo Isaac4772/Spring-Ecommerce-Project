@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aungpaing.model.entity.Category;
-import com.aungpaing.model.entity.Product;
 import com.aungpaing.model.repo.CategoryRepo;
 
 @Service

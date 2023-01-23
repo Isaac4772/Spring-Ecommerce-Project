@@ -1,7 +1,6 @@
 package com.aungpaing.model.entity;
 
 import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,6 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -20,10 +22,18 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(nullable = false)
+	@Size(min = 2, max = 30)
+	@NotNull(message = "name is required")
 	private String name;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
+	@NotNull(message = "email is required")
+	@Email
 	private String email;
+
+	@Column(nullable = false)
 	private String password;
 	private String phone;
 	private String address;

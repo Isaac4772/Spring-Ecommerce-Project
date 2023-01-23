@@ -1,5 +1,6 @@
 package com.aungpaing.model.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserService {
 		return repo.findUserByEmail(email);
 	}
 
-	public void save(User user) {
+	public void save(User user) throws SQLIntegrityConstraintViolationException {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		repo.save(user);
 	}

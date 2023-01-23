@@ -32,6 +32,7 @@ public class Product implements Serializable {
 
 	@Column(nullable = false)
 	private String name;
+	@Column(nullable = false)
 	private int price;
 	private String photo;
 	private String description;
@@ -113,8 +114,6 @@ public class Product implements Serializable {
 	public String getPhotoUrl() {
 		return "/uploads/" + id + "/" + photo;
 	}
-	
-	
 
 	@Override
 	public String toString() {

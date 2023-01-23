@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.aungpaing.model.entity.User;
@@ -45,14 +46,17 @@ public class HomeController {
 	}
 
 	@GetMapping("/register")
-	public String registerPage(ModelMap map) {
+	public String registerPage(ModelMap map, @ModelAttribute("email_error") String email_error,
+			@ModelAttribute("user") User user) {
 		map.put("user", new User());
+		map.put("email_error", email_error);
+		map.put("user", user);
 		return "register";
 	}
 
 	@GetMapping("/seller/option")
 	public String sellerOptionPage() {
-		
+
 		return "";
 	}
 }

@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadUtil {
 
 	public static void savePhoto(String uploadDir, String fileName, MultipartFile file) {
-		// TODO Auto-generated method stub
 		try {
 			Path path = Path.of(uploadDir); // upload-photos/1
 
